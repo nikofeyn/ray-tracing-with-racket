@@ -1,0 +1,9 @@
+# Ignore Racket's compilation folder and the images directory
+source/compiled/
+source/images/
+
+# Ignore PPM image files
+*.ppm
+
+# Ignore DrRacket's backup and autosave files
+*.bak
