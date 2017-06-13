@@ -8,7 +8,6 @@
 ; 
 ; I am using OpenSeeIt on Windows to view the files.
 
-
 ;Determines the size of the graphic
 (define nx 200) ;Number of columns
 (define ny 100) ;Number of rows
