@@ -29,12 +29,12 @@
 
 ;A small helper function for calculating color
 (define (calculate x y)
-  (exact-round (* 255.99 (/ x y))))
+  (exact-round (* 255 (/ x y))))
 
 (for ([j (in-range (- ny 1) -1 -1)])
   (for ([i (in-range 0 nx 1)])
     (display-list (list (calculate i nx) " "
                         (calculate j ny) " "
-                        (exact-round (* 255.99 0.2)) "\n"))))
+                        (exact-round (* 255 0.2)) "\n"))))
     
 (close-output-port ppm-file-port)

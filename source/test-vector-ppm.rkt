@@ -33,13 +33,13 @@
 
 ;A small helper function for calculating color
 (define (calculate x y)
-  (exact-round (* 255.99 (/ x y))))
+  (exact-round (* 255 (/ x y))))
 
 (for ([j (in-range (- ny 1) -1 -1)])
   (for ([i (in-range 0 nx 1)])
     (display-list (vector->string (vector (calculate i nx)
                                           (calculate j ny)
-                                          (exact-round (* 255.99 0.2)))
+                                          (exact-round (* 255 0.2)))
                                   #t))))
     
 (close-output-port ppm-file-port)
