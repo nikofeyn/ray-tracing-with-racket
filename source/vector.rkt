@@ -13,7 +13,6 @@
 ; I also intend on converting this module to use typed racket,
 ; which should force the use of this module for vectors of numbers.
 
-
 (provide (all-defined-out)) ;There are no private functions in this module
 
 (define (square-number x) (* x x))
