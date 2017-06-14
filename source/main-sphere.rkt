@@ -1,11 +1,9 @@
 #lang racket
 
-; Chapter 3: Rays, a simple camera, and background
+; Chapter 4: Adding a sphere
 ;
-; This implements a simple camera that looks at a background
-; and generates a color based upon the height of the object
-; or pixel being viewed. Generates a vertical gradient of blue
-; colors from light to dark from bottom to top.
+; We implement a hit-sphere function such that the color
+; function generates red when a ray hits the sphere.
 
 (require "vector.rkt" "ray.rkt")
 
@@ -23,7 +21,7 @@
 (define images-directory (build-path 'up "images"))
 
 (define ppm-path
-  (build-path images-directory "main-ray.ppm"))
+  (build-path images-directory "main-sphere.ppm"))
 
 (unless (directory-exists? images-directory)
   (make-directory images-directory))
@@ -37,11 +35,19 @@
 ;Write the PPM header for number of columns, rows, and max color
 (display-list ppm-file-port (list "P3\n" nx " " ny "\n" 255 "\n"))
 
+;Checks if the ray r hits the sphere defined by the center vector and radius
+(define (hit-sphere center radius r)
+  (let ([v (vector-subtract (point-at-parameter r 1) center)])
+    (< (- (vector-dot-product v v) (square-number radius))
+       0)))
+
 (define (color r)
   (let* ([unit-direction (vector-normalize (get-direction r))]
          [t (* 0.5 (+ (vector-ref unit-direction 1) 1))])
-    (vector-sum (vector-multiply-by #(1 1 1) (- 1 t))
-                (vector-multiply-by #(0.5 0.7 1) t))))
+    (if (hit-sphere #(0 0 -1) 0.5 r)
+        (vector 1 0 0)
+        (vector-sum (vector-multiply-by #(1 1 1) (- 1 t))
+                    (vector-multiply-by #(0.5 0.7 1) t)))))
 
 (for ([j (in-range (- ny 1) -1 -1)])
   (for ([i (in-range 0 nx 1)])

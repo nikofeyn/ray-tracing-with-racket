@@ -10,7 +10,7 @@
 
 (require "vector.rkt")
 
-(provide (all-defined-out))
+(provide (all-defined-out)) ;There are no private functions in this module
 
 (struct ray (A B))
 
@@ -21,9 +21,3 @@
 (define (point-at-parameter r time)
   (vector-sum (ray-A r)
               (vector-multiply-by (ray-B r) time)))
-
-(define (color r)
-  (let* ([unit-direction (vector-normalize (get-direction r))]
-         [t (* 0.5 (+ (vector-ref unit-direction 1) 1))])
-    (vector-sum (vector-multiply-by #(1 1 1) (- 1 t))
-                (vector-multiply-by #(0.5 0.7 1) t))))
