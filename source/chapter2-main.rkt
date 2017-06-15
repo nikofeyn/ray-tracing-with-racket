@@ -1,9 +1,12 @@
 #lang racket
 
-; Chapter 1: Output an image
-; This code implements the initial test of creating a PPM file.
+; Chapter 2: The vec3 class
+; This code re-implements the initial test of creating a PPM file
+; using the vector module.
 ; 
 ; I am using OpenSeeIt on Windows to view the files.
+
+(require "vector.rkt")
 
 ;Determines the size of the graphic
 (define nx 200) ;Number of columns
@@ -13,7 +16,7 @@
 (define images-directory (build-path 'up "images"))
 
 (define ppm-path
-  (build-path images-directory "test.ppm"))
+  (build-path images-directory "chapter2-main.ppm"))
 
 (unless (directory-exists? images-directory)
   (make-directory images-directory))
@@ -33,8 +36,9 @@
 
 (for ([j (in-range (- ny 1) -1 -1)])
   (for ([i (in-range 0 nx 1)])
-    (display-list (list (calculate i nx) " "
-                        (calculate j ny) " "
-                        (exact-round (* 255 0.2)) "\n"))))
+    (display-list (vector->string (vector (calculate i nx)
+                                          (calculate j ny)
+                                          (exact-round (* 255 0.2)))
+                                  #t))))
     
 (close-output-port ppm-file-port)

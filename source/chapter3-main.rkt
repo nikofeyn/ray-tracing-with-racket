@@ -23,7 +23,7 @@
 (define images-directory (build-path 'up "images"))
 
 (define ppm-path
-  (build-path images-directory "main-ray.ppm"))
+  (build-path images-directory "chapter3-main.ppm"))
 
 (unless (directory-exists? images-directory)
   (make-directory images-directory))
