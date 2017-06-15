@@ -21,7 +21,7 @@
 (define images-directory (build-path 'up "images"))
 
 (define ppm-path
-  (build-path images-directory "main-sphere.ppm"))
+  (build-path images-directory "chapter4-main.ppm"))
 
 (unless (directory-exists? images-directory)
   (make-directory images-directory))
@@ -37,9 +37,11 @@
 
 ;Checks if the ray r hits the sphere defined by the center vector and radius
 (define (hit-sphere center radius r)
-  (let ([v (vector-subtract (point-at-parameter r 1) center)])
-    (< (- (vector-dot-product v v) (square-number radius))
-       0)))
+  (let* ([AC (vector-subtract (get-origin r) center)]
+         [a (vector-dot-product (get-direction r) (get-direction r))]
+         [b (* 2 (vector-dot-product (get-direction r) AC ))]
+         [c (- (vector-dot-product AC AC) (* radius radius))])
+    (> (- (* b b) (* 4 a c)) 0)))
 
 (define (color r)
   (let* ([unit-direction (vector-normalize (get-direction r))]
