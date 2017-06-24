@@ -40,17 +40,17 @@
 (define (color r)
   (let* ([unit-direction (vector-normalize (get-direction r))]
          [t (* 0.5 (+ (vector-ref unit-direction 1) 1))])
-    (vector-sum (vector-multiply-by #(1 1 1) (- 1 t))
-                (vector-multiply-by #(0.5 0.7 1) t))))
+    (vector+ (vector*c #(1 1 1) (- 1 t))
+             (vector*c #(0.5 0.7 1) t))))
 
 (for ([j (in-range (- ny 1) -1 -1)])
   (for ([i (in-range 0 nx 1)])
     (let* ([u (/ i nx)]
            [v (/ j ny)]
-           [r (ray origin (vector-sum lower-left-corner
-                                      (vector-sum (vector-multiply-by horizontal u)
-                                                  (vector-multiply-by vertical v))))]
-           [col (vector-exact (vector-multiply-by (color r) 255))])
+           [r (ray origin (vector+ lower-left-corner
+                                   (vector*c horizontal u)
+                                   (vector*c vertical v)))]
+           [col (vector-exact (vector*c (color r) 255))])
       (display-list ppm-file-port (vector->string col #t)))))
     
 (close-output-port ppm-file-port)

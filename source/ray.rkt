@@ -19,5 +19,5 @@
 (define (get-direction r) (ray-B r))
 
 (define (point-at-parameter r time)
-  (vector-sum (ray-A r)
-              (vector-multiply-by (ray-B r) time)))
+  (vector+ (ray-A r)
+           (vector*c (ray-B r) time)))

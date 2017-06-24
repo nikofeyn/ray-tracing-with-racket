@@ -37,7 +37,7 @@
 
 ;Checks if the ray r hits the sphere defined by the center vector and radius
 (define (hit-sphere center radius r)
-  (let* ([AC (vector-subtract (get-origin r) center)]
+  (let* ([AC (vector- (get-origin r) center)]
          [a (vector-dot-product (get-direction r) (get-direction r))]
          [b (* 2 (vector-dot-product (get-direction r) AC ))]
          [c (- (vector-dot-product AC AC) (* radius radius))])
@@ -48,17 +48,17 @@
          [t (* 0.5 (+ (vector-ref unit-direction 1) 1))])
     (if (hit-sphere #(0 0 -1) 0.5 r)
         (vector 1 0 0)
-        (vector-sum (vector-multiply-by #(1 1 1) (- 1 t))
-                    (vector-multiply-by #(0.5 0.7 1) t)))))
+        (vector+ (vector*c #(1 1 1) (- 1 t))
+                 (vector*c #(0.5 0.7 1) t)))))
 
 (for ([j (in-range (- ny 1) -1 -1)])
   (for ([i (in-range 0 nx 1)])
     (let* ([u (/ i nx)]
            [v (/ j ny)]
-           [r (ray origin (vector-sum lower-left-corner
-                                      (vector-sum (vector-multiply-by horizontal u)
-                                                  (vector-multiply-by vertical v))))]
-           [col (vector-exact (vector-multiply-by (color r) 255))])
+           [r (ray origin (vector+ lower-left-corner
+                                   (vector*c horizontal u)
+                                   (vector*c vertical v)))]
+           [col (vector-exact (vector*c (color r) 255))])
       (display-list ppm-file-port (vector->string col #t)))))
     
 (close-output-port ppm-file-port)
