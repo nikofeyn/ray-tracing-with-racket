@@ -49,11 +49,16 @@
 (define (vector/c v c)
   (for/vector ([i v]) (/ i c)))
 
-(define (vector-dot-product v1 v2)
-  (sum-vector (vector* v1 v2)))
+(define (vector-dot-product u v)
+  (sum-vector (vector* u v)))
 
-;Currently not implemented
-;(define (vector-cross-product v1 v2) #(empty))
+(define (vector-cross-product u v)
+  (vector (- (* (vector-ref u 1) (vector-ref v 2))
+             (* (vector-ref u 2) (vector-ref v 1)))
+          (- (* (vector-ref u 2) (vector-ref v 0))
+             (* (vector-ref u 0) (vector-ref v 2)))
+          (- (* (vector-ref u 0) (vector-ref v 1))
+             (* (vector-ref u 1) (vector-ref v 0)))))
 
 (define (vector-norm v)
   (sqrt (sum-vector (vector-map square-number v))))
