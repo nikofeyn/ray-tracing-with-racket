@@ -5,23 +5,19 @@
 ; collection of functions that operate on a standard Racket vector.
 ; 
 ; These functions are only intended for vectors of numbers,
-; although they do not depend on the vector length. There are
-; some improvements that can be made. For example, many of the
-; operator functions only operate on a pair of vectors. They will
-; be extended in the future to accept n-vectors, where n>=1.
-; 
-; I also intend on converting this module to use typed racket,
-; which should force the use of this module for vectors of numbers.
+; although they do not depend on the vector length, i.e., the
+; number of components in the vector. There are some improvements
+; that can be made. For example, I intend on converting this module
+; to use typed racket, forcing the vectors to be composed of numbers.
 
 ; Note: This module was developed prior to me finding out about flvectors
 ; and the additional flvector math operations.
 ; See: https://docs.racket-lang.org/math/flonum.html#%28part._.Additional_.Flonum_.Vector_.Functions%29
-; However, that library only works with flectors, which are little
-; more difficult to construct. For example, (flvector 1 2 3) fails,
+; However, that library only works with flectors, which are a little
+; more tedious to construct. For example, (flvector 1 2 3) fails,
 ; and so you are forced to do something like (flvector 1.0 2.0 3.0).
 ; Since this module works with regular Racket vectors (will eventually
 ; be typed to numbers), we can just use #(1 2 3), which is far easier.
-; Also, the functions in this module accept an arbitrary number of vectors.
 
 (provide (all-defined-out)) ;There are no private functions in this module
 
@@ -57,7 +53,7 @@
   (sum-vector (vector* v1 v2)))
 
 ;Currently not implemented
-(define (vector-cross-product v1 v2) #(empty))
+;(define (vector-cross-product v1 v2) #(empty))
 
 (define (vector-norm v)
   (sqrt (sum-vector (vector-map square-number v))))
