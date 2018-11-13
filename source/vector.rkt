@@ -61,10 +61,10 @@
              (* (vector-ref u 1) (vector-ref v 0)))))
 
 (define (vector-norm v)
-  (sqrt (sum-vector (vector-map square-number v))))
+  (sqrt (vector-dot-product v v)))
 
 (define (vector-norm-squared v)
-  (square-number (vector-norm v)))
+  (vector-dot-product v v))
 
 (define (vector-normalize v)
   (vector/c v (vector-norm v)))
